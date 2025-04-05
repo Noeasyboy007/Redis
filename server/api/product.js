@@ -18,7 +18,11 @@ const getProductById = (id) =>
     new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve({
-                product: { id: 1, name: "Product 1", price: 500 }
+                product: {
+                    id: id,
+                    name: "Product " + id,
+                    price: Math.random() * 1000
+                }
             })
         }, 4000)
     })
