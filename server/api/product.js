@@ -14,4 +14,12 @@ const getProducts = () =>
         }, 4000)
     })
 
-module.exports = { getProducts };
+const getProductById = (id) =>
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                product: { id: 1, name: "Product 1", price: 500 }
+            })
+        }, 4000)
+    })
+module.exports = { getProducts, getProductById };

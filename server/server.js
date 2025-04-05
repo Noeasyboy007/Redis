@@ -17,17 +17,14 @@ app.use(express.json());
 
 app.get("/products", async (req, res) => {
     // check if products is exist in redis then return the products via redis
-    const isExist = await redisClient.exists("products");
-    if (isExist) {
+    let productsData = await redisClient.get("products");
+    if (productsData) {
         console.log("Fetching products from Redis".bgYellow);
-        const products = await redisClient.get("products");
-        return res.json({
-            products: JSON.parse(products)
-        })
+        return res.json(JSON.parse(productsData));
     }
 
     const products = await getProducts();
-    // Either set the products to redis and  return the products
+    // Store just the products data in Redis
     await redisClient.set("products", JSON.stringify(products));
     res.json(products);
 });
